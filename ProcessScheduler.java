@@ -17,11 +17,11 @@ public class ProcessScheduler {
     public static void main(String[] args) {
         List<Process> process = readprocessFromFile("process.txt");
 
-        // Display loaded process for verification
-        System.out.println("Loaded process:");
-        for (Process p : process) {
-            System.out.println(p);
-        }
+        System.out.println("First-Come, First-Served (FCFS)");
+        FCFS.schedule(new ArrayList<>(process));
+
+        System.out.println("\nShortest Job First (SJF) ");
+        SJF.schedule(new ArrayList<>(process));
     }
 
     // Reads process data from file

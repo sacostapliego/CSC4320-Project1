@@ -1,5 +1,5 @@
 ## Operating Systems Project: Process Scheduling Simulation
-This project implements common CPU scheduling algorithms used in operating systems, including:
+This project implements CPU scheduling algorithms:
 - First-Come, First-Served (FCFS)
 - Shortest Job First (SJF)
 

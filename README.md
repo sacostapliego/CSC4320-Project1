@@ -13,5 +13,5 @@ This project implements CPU scheduling algorithms:
 ## How to Run
 Run the following command to print out both algorithms (FCFS and SJF)
 ```bash
-java ProcessScheduler
+java ProcessScheduler.java
 ```

@@ -1,0 +1,5 @@
+# instructions/report pdf
+*.pdf
+
+# report file
+*.docx

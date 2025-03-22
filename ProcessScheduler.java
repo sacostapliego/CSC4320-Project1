@@ -14,10 +14,16 @@ import java.io.*;
 import java.util.*;
 
 public class ProcessScheduler {
+    // Main method to test the scheduling algorithms
     public static void main(String[] args) {
         List<Process> process = readprocessFromFile("process.txt");
 
-        System.out.println("First-Come, First-Served (FCFS)");
+        System.out.println("Process Data:");
+        for (Process p : process) {
+            System.out.println(p);
+        }
+
+        System.out.println("\nFirst Come First Served (FCFS)");
         FCFS.schedule(new ArrayList<>(process));
 
         System.out.println("\nShortest Job First (SJF) ");
@@ -46,5 +52,30 @@ public class ProcessScheduler {
         }
 
         return process;
+    }
+
+    // Displays process details, including waiting time and turnaround time
+    public static void displayProcessDetails(Map<Process, Integer[]> metrics) {
+        System.out.println("\nProcess Details:");
+        int totalWT = 0, totalTAT = 0;
+
+        // Display waiting time and turnaround time for each process
+        for (Map.Entry<Process, Integer[]> entry : metrics.entrySet()) {
+            Process p = entry.getKey();
+            int wt = entry.getValue()[0];
+            int tat = entry.getValue()[1];
+
+            System.out.printf("P%d -> WT: %d, TAT: %d\n", p.pid, wt, tat);
+            // Calculate total waiting time and total turnaround time
+            totalWT += wt;
+            totalTAT += tat;
+        }
+
+        // Calculate average waiting time and average turnaround time
+        double avgWT = (double) totalWT / metrics.size();
+        double avgTAT = (double) totalTAT / metrics.size();
+
+        System.out.printf("\nAverage Waiting Time: %.2f\n", avgWT);
+        System.out.printf("Average Turnaround Time: %.2f\n", avgTAT);
     }
 }

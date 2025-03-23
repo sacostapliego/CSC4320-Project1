@@ -16,7 +16,10 @@ public class FCFS {
         int currentTime = 0;
         Map<Process, Integer[]> processMetrics = new HashMap<>();
 
-        System.out.print("Gantt Chart: ");
+        System.out.print("Gantt Chart:\n|");
+        StringBuilder timePoints = new StringBuilder();
+        timePoints.append(String.format("%-5d", currentTime)); 
+
         for (Process p : processes) {
             // If the current time is less than the arrival time of the process, update the current time
             if (currentTime < p.arrivalTime) {
@@ -31,10 +34,11 @@ public class FCFS {
             processMetrics.put(p, new Integer[]{waitingTime, turnaroundTime});
             
             // Display the Gantt chart
-            System.out.print("| P" + p.pid + " ");
+            System.out.print(" P" + p.pid + " |");
+            timePoints.append(String.format("%-5d", currentTime + p.burstTime));
             currentTime += p.burstTime;
         }
-        System.out.println("| " + currentTime);
+        System.out.println("\n " + timePoints.toString());
 
         ProcessScheduler.displayProcessDetails(processMetrics);
     }

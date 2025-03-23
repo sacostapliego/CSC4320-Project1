@@ -8,6 +8,7 @@ public class SJF {
         int currentTime = 0;
         Map<Process, Integer[]> processMetrics = new HashMap<>();
 
+        // Tie-breaker: If two processes have the same burst time, pick the one with the earliest arrival time
         PriorityQueue<Process> readyQueue = new PriorityQueue<>(
             Comparator.comparingInt((Process p) -> p.burstTime)
                       .thenComparingInt(p -> p.arrivalTime)

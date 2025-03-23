@@ -33,7 +33,8 @@ public class ProcessScheduler {
     // Reads process data from file
     public static List<Process> readprocessFromFile(String filename) {
         List<Process> process = new ArrayList<>();
-
+        
+        // Read data from file and create Process objects
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line = br.readLine();  // Skip header line
             while ((line = br.readLine()) != null) {
@@ -47,6 +48,7 @@ public class ProcessScheduler {
                     process.add(new Process(pid, arrivalTime, burstTime, priority));
                 }
             }
+        // Handle exceptions
         } catch (IOException e) {
             System.err.println("Error reading file: " + e.getMessage());
         }
@@ -58,24 +60,39 @@ public class ProcessScheduler {
     public static void displayProcessDetails(Map<Process, Integer[]> metrics) {
         System.out.println("\nProcess Details:");
         int totalWT = 0, totalTAT = 0;
-
+        int totalBurstTime = 0;
+        int maxCompletionTime = 0;
+    
         // Display waiting time and turnaround time for each process
         for (Map.Entry<Process, Integer[]> entry : metrics.entrySet()) {
             Process p = entry.getKey();
             int wt = entry.getValue()[0];
             int tat = entry.getValue()[1];
-
+            
+            // Find total burst time for CPU utilization calculation
+            totalBurstTime += p.burstTime;
+            
+            // Find the maximum completion time (arrival + turnaround)
+            int completionTime = p.arrivalTime + tat;
+            if (completionTime > maxCompletionTime) {
+                maxCompletionTime = completionTime;
+            }
+    
             System.out.printf("P%d -> WT: %d, TAT: %d\n", p.pid, wt, tat);
             // Calculate total waiting time and total turnaround time
             totalWT += wt;
             totalTAT += tat;
         }
-
+    
         // Calculate average waiting time and average turnaround time
         double avgWT = (double) totalWT / metrics.size();
         double avgTAT = (double) totalTAT / metrics.size();
-
+        
+        // Calculate CPU utilization
+        double cpuUtilization = ((double) totalBurstTime / maxCompletionTime) * 100;
+    
         System.out.printf("\nAverage Waiting Time: %.2f\n", avgWT);
         System.out.printf("Average Turnaround Time: %.2f\n", avgTAT);
+        System.out.printf("CPU Utilization: %.2f%%\n", cpuUtilization);
     }
 }

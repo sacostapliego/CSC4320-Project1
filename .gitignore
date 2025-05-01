@@ -3,3 +3,6 @@
 
 # report file
 *.docx
+
+# class files
+*.class

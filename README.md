@@ -28,7 +28,7 @@ This project solves the Dining Philosophers problem using synchronization primit
 ## Project Structure
 - [`ProcessThread.java`](ProcessThread.java): Simulates the CPU burst using Thread.sleep()
 - [`ThreadScheduler.java`](ThreadScheduler.java): The execution and synchronization of multiple threads
-- [`DiningPhilosophers.java`](DiningPhilosophers.java): Solves the Dining Philosophers problem, showing the thead activity
+- [`DiningPhilosophers.java`](DiningPhilosophers.java): Solves the Dining Philosophers problem, shows the thead activity
 - [`process.txt`](process.txt): Sample input file containing process data (same as project 1)
 
 ## How to Run
